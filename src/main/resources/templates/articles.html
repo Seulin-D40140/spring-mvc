@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<link rel = "stylesheet" href ="../static/css/bootstrap.min.css" th:href = "@{css/bootstrap.min.css}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class = "container">
+		<div class = "panel panel-primary">
+			<div class = "panel-heading">List des Articles</div>
+			<div class = "panel-body">
+				<table class = "table" >
+					<tr>
+						<th>id</th><th>description</th><th>prix</th>
+					</tr>
+					<tr th:each = "a:${listArticles}">
+						<td th:text = "${a.id}"></td>
+						<td th:text = "${a.description}"></td>
+						<td th:text = "${a.price}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<ul class = "nav nav-pills">
+		<li th:class = "${currentPage==status.index}?'active':''" th:each= "page,status:${pages}">
+			<a th:href="@{/index(page=${status.index})}" th:text="${status.index}"></a>
+		</li>
+	</ul>
+</body>
+</html>
