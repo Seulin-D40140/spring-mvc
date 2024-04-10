@@ -12,6 +12,9 @@ import fr.fms.entities.Article;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -39,4 +42,16 @@ public class ArticleController
 		return "redirect:/index?page="+page+"&keyword="+keyword;
 	}
 	
+	@GetMapping("/article")
+	public String article() 
+	{
+		return "article";
+	}
+	
+	@PostMapping("/save")
+	public String save(Article article) 
+	{
+		articleRepository.save(article);
+		return "article";
+	}
 }
