@@ -1,6 +1,8 @@
 package fr.fms.web;
 
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -57,7 +62,32 @@ public class ArticleController
 	public String save( @Valid Article article , BindingResult bindingResult) 
 	{
 		if(bindingResult.hasErrors()) return "article";
+		
 		articleRepository.save(article);
-		return "article";
+		return "redirect:/index";
 	}
+	
+	@GetMapping("/update")
+	public String update(Model model , Long id)
+	{
+		Optional<Article> articleToUpdate = articleRepository.findById(id);
+		Article article2 = articleToUpdate.orElse(null);
+		model.addAttribute("article" ,article2);
+		return "update";
+	}
+	
+	@PostMapping("/toUpdate")
+	public String toUpdate(@Valid Article upArticle , Long id) 
+	{
+		Optional<Article> optarticle = articleRepository.findById(id);
+		Article article2 = optarticle.get();
+		article2.setDescription(upArticle.getDescription());
+		article2.setPrice(upArticle.getPrice());
+		article2.setId(upArticle.getId());
+		articleRepository.save(article2);
+//		article2.setDescription(article.getDescription());
+//		article2.setPrice(article.getPrice());
+		return "redirect:/index";
+	}
+	
 }

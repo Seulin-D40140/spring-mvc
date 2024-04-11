@@ -21,7 +21,7 @@ public class SpringStockMvcSecApplication  implements CommandLineRunner
 	@Override
 	public void run(String... args) throws Exception
 	{
-//		articleRepository.save(new Article("samsung" , 250));
+		articleRepository.save(new Article("audi quattro" , 250));
 //		articleRepository.save(new Article("sony" , 450));
 //		articleRepository.save(new Article("lg" , 350));
 //		articleRepository.save(new Article("phillips" , 150));
